@@ -13,6 +13,10 @@
 
 #include <stdint.h>
 
+#include "pins.h"
+#include "timing.h"
+
+
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
 
@@ -37,6 +41,12 @@ int init_host_comms(unsigned long timeout=0, char versionCheck=1);
  * Send timing data from a photogate to the host process
  */
 int host_sendTimingData(int stage, uint64_t data);
+
+/**
+ * Send the timing data for all the gates at once.
+ * Used to offload data after a shot
+ */
+int host_sendBulkTimingData(uint64_t* data);
 
 
 #endif /* HOST_COMMS_H_ */
