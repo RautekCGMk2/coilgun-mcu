@@ -35,7 +35,7 @@
  * @note
  * 		Error usually means host program and MCU program are out of date with each other
  */
-int init_host_comms(unsigned long timeout=0, char versionCheck=1);
+int init_host_comms(unsigned long timeout, char versionCheck);
 
 /**
  * Send timing data from a photogate to the host process

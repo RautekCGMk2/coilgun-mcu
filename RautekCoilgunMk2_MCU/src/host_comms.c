@@ -5,9 +5,13 @@
  *      Author: scott
  */
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpointer-sign"
+
 #include "host_comms.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 #define READ_BUFFER_LEN 64
 
@@ -23,7 +27,8 @@
 
 int init_host_comms(unsigned long timeout, char versionCheck) {
 	// Wait for the host to send some data
-	unsigned char buf[READ_BUFFER_LEN];
+	unsigned char* buf;
+	buf = malloc(sizeof(unsigned char) * READ_BUFFER_LEN);
 	int readLen;
 	unsigned long startTime = time_ms();
 	unsigned long currTime = startTime;
@@ -73,3 +78,5 @@ int init_host_comms(unsigned long timeout, char versionCheck) {
 
 	return -1; // if we got here, something went horribly wrong
 }
+
+#pragma GCC diagnostic pop
