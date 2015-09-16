@@ -1,6 +1,8 @@
 #include "mcu_api.h"
 #include "mcu_errno.h"
 
+#include "host_comms.h"
+
 void mcu_main()
 {
     /* your configuration code starts here */
