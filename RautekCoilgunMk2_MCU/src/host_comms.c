@@ -25,7 +25,7 @@
 		\
 	}
 
-int init_host_comms(unsigned long timeout, char versionCheck) {
+int host_init_comms(unsigned long timeout, char versionCheck) {
 	// Wait for the host to send some data
 	unsigned char* buf;
 	buf = malloc(sizeof(unsigned char) * READ_BUFFER_LEN);
@@ -63,20 +63,21 @@ int init_host_comms(unsigned long timeout, char versionCheck) {
 				debug_print(DBG_ERROR,
 						"Host protocol version mismatch. Host running version %.3s, expected %s\n",
 						buf, STR(PROTOCOL_VERSION));
-				return -1;
+				return PROTOCOL_ERROR_VERSION_MISMATCH;
 			}
 		} else { // host didn't reply the way we expected, return an error
 			debug_print(DBG_FATAL,
 					"Communications with host failed to initialize\n");
-			return -1;
+			return PROTOCOL_ERROR_DATA_CORRUPT;
 		}
 	} else { // We timed out
 		debug_print(DBG_WARNING,
-				"Timed out while waiting for comms with host\n");
+				"Timed out while waiting for comms with host. Waited %d ms\n",
+				timeout);
 		return 0;
 	}
 
-	return -1; // if we got here, something went horribly wrong
+	return PROTOCOL_ERROR_UNKNOWN; // if we got here, something went horribly wrong
 }
 
 #pragma GCC diagnostic pop

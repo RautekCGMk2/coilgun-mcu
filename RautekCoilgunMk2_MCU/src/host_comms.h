@@ -22,8 +22,12 @@
 
 // 3 digits so that the string length is the same no matter how many versions we have
 // I hope to god i don't have to update the protocol more than 1000 times
-#define PROTOCOL_VERSION 		001
-#define PROTOCOL_VERSION_LEN	3
+#define PROTOCOL_VERSION 					001
+#define PROTOCOL_VERSION_LEN				3
+
+#define PROTOCOL_ERROR_UNKNOWN 				-1
+#define PROTOCOL_ERROR_VERSION_MISMATCH		-2
+#define PROTOCOL_ERROR_DATA_CORRUPT			-4
 
 /**
  * Initialize communications with the process running on the host
@@ -31,11 +35,11 @@
  * timeout milliseconds have elapsed
  * @param timeout the maximum number of ms to wait for the. If timeout is 0,
  * 			don't time out
- * @return Returns 0 on success, 1 on timeout, or -1 on an error
+ * @return Returns 0 on success, 1 on timeout, or a negative number on error
  * @note
  * 		Error usually means host program and MCU program are out of date with each other
  */
-int init_host_comms(unsigned long timeout, char versionCheck);
+int host_init_comms(unsigned long timeout, char versionCheck);
 
 /**
  * Send timing data from a photogate to the host process
