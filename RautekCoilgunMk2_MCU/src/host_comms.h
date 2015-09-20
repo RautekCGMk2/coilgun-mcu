@@ -29,6 +29,7 @@
 #define PROTOCOL_ERROR_VERSION_MISMATCH		-2
 #define PROTOCOL_ERROR_DATA_CORRUPT			-4
 
+
 /**
  * Initialize communications with the process running on the host
  * processor. Blocks until communications have been established or
@@ -40,6 +41,14 @@
  * 		Error usually means host program and MCU program are out of date with each other
  */
 int host_init_comms(unsigned long timeout, char versionCheck);
+
+/**
+ * Wake up the host CPU by using the host_send() function to trigger an interrupt
+ * @note
+ * 		No error checking for fanciness is done. It *should* always work though.
+ * 		Host can be put to sleep with 'echo -n "mem" > /sys/power/state'
+ */
+void host_wake_host();
 
 /**
  * Send timing data from a photogate to the host process

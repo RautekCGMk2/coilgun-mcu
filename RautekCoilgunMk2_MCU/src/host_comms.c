@@ -80,4 +80,8 @@ int host_init_comms(unsigned long timeout, char versionCheck) {
 	return PROTOCOL_ERROR_UNKNOWN; // if we got here, something went horribly wrong
 }
 
+void host_wake_host() {
+	host_send((unsigned char*)"wake up!\n", 10);
+}
+
 #pragma GCC diagnostic pop

@@ -16,6 +16,7 @@ void mcu_main() {
 					result);
 		}
 	} while (result);
+	debug_print(DBG_INFO, "Successfully established communications with host processor\n");
 
 	while (1) /* your loop code starts here */
 	{
